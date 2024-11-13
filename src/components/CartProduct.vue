@@ -5,6 +5,7 @@ const cartStore = useCartStore();
 
 defineProps({
   item: Object,
+  index: Number,
 });
 </script>
 
@@ -19,9 +20,9 @@ defineProps({
     </div>
     <div class="card__right">
       <div class="card__quantity-btn">
-        <button>-</button>
+        <button @click="cartStore.removeQty(index)">-</button>
         <span>{{ item.quantity }}</span>
-        <button>+</button>
+        <button @click="cartStore.addQty(index)">+</button>
       </div>
       <button @click="cartStore.removeCartItem(item)" class="card__remove-btn">
         <img src="/x.svg" alt="X" />

@@ -1,21 +1,44 @@
 <script setup>
+import { computed } from "vue";
 import { useCartStore } from "@/stores/CartProductStore";
 import CartProduct from "./CartProduct.vue";
+import infoBlock from "./infoBlock.vue";
 
 const cartStore = useCartStore();
 
 const emit = defineEmits(["closeDrawer"]);
+
+const buttonDisabled = computed(() =>
+  cartStore.isCreatingOrder ? true : cartStore.cartTotal ? false : true
+);
 </script>
 
 <template>
   <div class="drawer__bg"></div>
-  <div class="drawer">
+  <div
+    class="drawer"
+    :style="{ overflow: cartStore.cartTotal ? 'auto' : 'hidden' }"
+  >
     <div class="drawer__top">
       <p>Корзина</p>
       <button @click="emit('closeDrawer')"><img src="/x.svg" alt="X" /></button>
     </div>
     <div class="cart__wrapper">
-      <div class="cart">
+      <div v-if="!cartStore.cartTotal" class="cart__info">
+        <infoBlock
+          v-if="!cartStore.cartTotal && !cartStore.orderId"
+          imageUrl="/package-icon.png"
+          title="Корзина пустая"
+          description="Добавьте хотя-бы один товар, что-бы сделать заказ"
+        />
+        <infoBlock
+          v-if="cartStore.orderId"
+          imageUrl="/order-success-icon.png"
+          title="Заказ оформлен"
+          :description="`Ваш заказ #${cartStore.orderId} оформлен скоро будет передан курьерской доставке`"
+        />
+      </div>
+      <div v-if="cartStore.cartTotal" class="cart">
         <div class="cart__summary">
           <span class="items_count">{{ cartStore.cartCounter }} товара</span>
           <button @click="cartStore.clearCart" class="clear__list">
@@ -24,18 +47,27 @@ const emit = defineEmits(["closeDrawer"]);
         </div>
         <div class="cart__list">
           <CartProduct
-            v-for="item in cartStore.cartItems"
+            v-for="(item, index) in cartStore.cartItems"
             :key="item.id"
             :item="item"
+            :index="index"
           />
         </div>
       </div>
-      <div class="drawer__foot">
+      <div v-if="cartStore.cartTotal" class="drawer__foot">
         <div class="cart__price">
           <span>Итого</span>
-          <p>14 400₽</p>
+          <p>
+            {{ cartStore.cartTotal }}
+          </p>
         </div>
-        <button class="cart__btn">Оформить заказ</button>
+        <button
+          :disabled="buttonDisabled"
+          @click="cartStore.createOrder"
+          class="cart__btn"
+        >
+          Оформить заказ
+        </button>
       </div>
     </div>
   </div>
@@ -63,7 +95,13 @@ const emit = defineEmits(["closeDrawer"]);
   background: #fff;
   z-index: 30;
   padding: 40px;
-  overflow-y: auto;
+}
+
+.cartInfo {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  /* width: 300px; */
 }
 
 .drawer__top {
@@ -93,6 +131,7 @@ const emit = defineEmits(["closeDrawer"]);
   display: flex;
   flex-direction: column;
   min-height: 100%;
+  justify-content: center;
 }
 
 .cart {
@@ -113,6 +152,13 @@ const emit = defineEmits(["closeDrawer"]);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
   padding-bottom: 10px;
+}
+
+.cart__info {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .clear__list {
@@ -136,21 +182,20 @@ const emit = defineEmits(["closeDrawer"]);
   margin-top: 30px;
 }
 
-.cart__price {
-}
-
-.cart__price p {
-}
-
 .cart__price p {
   font-family: Inter;
   font-size: 30px;
   font-weight: 500;
   line-height: 30px;
 }
+
 .cart__btn {
   padding: 20px 57px;
   background: rgba(123, 184, 153, 1);
   border-radius: 4px;
+}
+
+.cart__btn:disabled {
+  background: rgb(172, 173, 172);
 }
 </style>

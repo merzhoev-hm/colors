@@ -12,6 +12,7 @@ const closeDrawer = () => {
   drawerOpen.value = false;
   document.body.style.paddingRight = "";
   document.body.classList.remove("overflow-hidden");
+  cartStore.orderId = null;
 };
 
 const openDrawer = () => {

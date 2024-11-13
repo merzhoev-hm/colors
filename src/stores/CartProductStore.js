@@ -5,6 +5,8 @@ import { defineStore } from "pinia";
 
 export const useCartStore = defineStore("cartStore", () => {
   const cartItems = ref([]);
+  const orderId = ref(null);
+  const isCreatingOrder = ref(false);
   const cartCounter = computed(() => {
     let total = 0;
     cartItems.value.map((item) => {
@@ -13,7 +15,13 @@ export const useCartStore = defineStore("cartStore", () => {
     return total;
   });
 
-  // const cartProductPrice = computed((item) => item.price * item.quantity);
+  const cartTotal = computed(() => {
+    let sum = 0;
+    cartItems.value.map((item) => {
+      sum += sum + item.quantity * item.price;
+    });
+    return sum;
+  });
 
   const fetchCartItems = async () => {
     try {
@@ -54,8 +62,6 @@ export const useCartStore = defineStore("cartStore", () => {
     }
   };
 
-  
-
   const removeCartItem = async (item) => {
     try {
       let index;
@@ -77,6 +83,26 @@ export const useCartStore = defineStore("cartStore", () => {
     }
   };
 
+  const addQty = async (index) => {
+    if (cartItems.value[index].quantity !== 100) {
+      cartItems.value[index].quantity++;
+      const response = await axios.patch(
+        "https://c9eb088298b67fcc.mokky.dev/cart",
+        cartItems.value
+      );
+    }
+  };
+
+  const removeQty = async (index) => {
+    if (cartItems.value[index].quantity !== 1) {
+      cartItems.value[index].quantity--;
+      const response = await axios.patch(
+        "https://c9eb088298b67fcc.mokky.dev/cart",
+        cartItems.value
+      );
+    }
+  };
+
   const clearCart = async () => {
     try {
       if (cartItems.value.length > 0) {
@@ -91,6 +117,30 @@ export const useCartStore = defineStore("cartStore", () => {
     }
   };
 
+  const createOrder = async () => {
+    try {
+      isCreatingOrder.value = true;
+      const { data } = await axios.post(
+        "https://c9eb088298b67fcc.mokky.dev/orders",
+        {
+          items: cartItems.value,
+          totalPrice: cartTotal.value,
+        }
+      );
+      orderId.value = data.id;
+
+      cartItems.value = [];
+      const response = await axios.patch(
+        "https://c9eb088298b67fcc.mokky.dev/cart",
+        cartItems.value
+      );
+    } catch (error) {
+      console.log(error);
+    } finally {
+      isCreatingOrder.value = false;
+    }
+  };
+
   return {
     cartItems,
     cartCounter,
@@ -98,5 +148,11 @@ export const useCartStore = defineStore("cartStore", () => {
     fetchCartItems,
     removeCartItem,
     clearCart,
+    removeQty,
+    addQty,
+    cartTotal,
+    createOrder,
+    isCreatingOrder,
+    orderId,
   };
 });
