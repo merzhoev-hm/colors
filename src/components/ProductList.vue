@@ -82,6 +82,7 @@ watch(
   display: flex;
   justify-content: space-between;
   margin-bottom: 44px;
+  align-items: center;
 }
 
 .product__options {

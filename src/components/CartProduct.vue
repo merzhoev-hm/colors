@@ -33,7 +33,7 @@ defineProps({
 
 <style scoped>
 .card {
-  width: 500px;
+  width: 100%;
   min-height: 96px;
   display: flex;
   justify-content: space-between;

@@ -198,4 +198,10 @@ const buttonDisabled = computed(() =>
 .cart__btn:disabled {
   background: rgb(172, 173, 172);
 }
+
+@media screen and (max-width: 780px) {
+  .drawer {
+    width: 100%;
+  }
+}
 </style>

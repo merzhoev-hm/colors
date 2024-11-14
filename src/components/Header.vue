@@ -27,6 +27,11 @@ const openDrawer = () => {
   <Drawer v-if="drawerOpen" @closeDrawer="closeDrawer" />
   <div class="container">
     <header class="header">
+      <button class="header__burger-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <div class="header__left">
         <img class="header__logo" src="/logo.svg" alt="logo" />
         <ul class="header__nav">
@@ -142,6 +147,28 @@ const openDrawer = () => {
   cursor: pointer;
 }
 
+.header__burger-btn {
+  display: none;
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+.header__burger-btn span {
+  width: 30px;
+  height: 3px;
+  position: absolute;
+  background: #000;
+  left: 5px;
+}
+
+.header__burger-btn span:nth-child(1) {
+  transform: translateY(-10px);
+}
+.header__burger-btn span:nth-child(3) {
+  transform: translateY(10px);
+}
+
 @media screen and (max-width: 1380px) {
   .header__right {
     display: flex;
@@ -157,6 +184,30 @@ const openDrawer = () => {
 
     gap: 50px;
     margin-right: auto;
+  }
+}
+
+@media screen and (max-width: 1160px) {
+  .header__phone {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .header__nav,
+  .header__right {
+    display: none;
+  }
+
+  .header__left {
+    margin-right: 0;
+  }
+  .header {
+    justify-content: space-between;
+  }
+
+  .header__burger-btn {
+    display: block;
   }
 }
 </style>
