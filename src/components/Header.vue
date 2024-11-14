@@ -210,4 +210,11 @@ const openDrawer = () => {
     display: block;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .header {
+    border-bottom: 1px solid rgba(31, 32, 32, 0.06);
+    margin-bottom: 16px;
+  }
+}
 </style>

@@ -5,6 +5,7 @@ import { defineStore } from "pinia";
 
 export const useCardStore = defineStore("cardStore", () => {
   const items = ref([]);
+
   const itemsCounter = computed(() => items.value.length);
 
   const fetchItems = async (filters) => {
@@ -25,6 +26,7 @@ export const useCardStore = defineStore("cardStore", () => {
       console.log("Ошибкааа", err);
     }
   };
+
   return {
     items,
     fetchItems,

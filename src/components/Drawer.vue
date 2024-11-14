@@ -14,7 +14,7 @@ const buttonDisabled = computed(() =>
 </script>
 
 <template>
-  <div class="drawer__bg"></div>
+  <div class="drawer__bg" @click="emit('closeDrawer')"></div>
   <div
     class="drawer"
     :style="{ overflow: cartStore.cartTotal ? 'auto' : 'hidden' }"
