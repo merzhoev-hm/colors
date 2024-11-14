@@ -71,3 +71,9 @@ button {
   color: inherit;
   background-color: transparent;
 }
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
+}

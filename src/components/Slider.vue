@@ -166,4 +166,10 @@ const prevSlide = () => {
 .activedot {
   opacity: 100%;
 }
+
+@media screen and (max-width: 768px) {
+  .sliderbg__image {
+    display: none;
+  }
+}
 </style>

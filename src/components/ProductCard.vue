@@ -24,7 +24,7 @@ defineProps({
 <style scoped>
 .card {
   width: 278px;
-  height: 376px;
+  /* height: 376px; */
   transition: all 0.2s ease;
 }
 
@@ -36,9 +36,6 @@ defineProps({
 
 .card:hover .card__btn {
   display: block;
-}
-
-.card__img {
 }
 
 .card__desc {
@@ -76,5 +73,41 @@ defineProps({
 
   font-size: 22px;
   display: none;
+}
+
+@media screen and (max-width: 980px) {
+  .card {
+    width: 200px;
+  }
+
+  .card__img img {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    width: 156px;
+  }
+
+  .card__img img {
+    width: 156px;
+    height: 156px;
+  }
+
+  .card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .card__btn {
+    display: block;
+    background: rgba(242, 242, 242, 1);
+  }
+
+  .card__btn:active {
+    background-color: #7bb899;
+  }
 }
 </style>

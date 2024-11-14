@@ -60,7 +60,7 @@ defineProps({
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 165px;
+  max-width: 165px;
 }
 
 .card__title {
@@ -116,5 +116,24 @@ defineProps({
   height: 24px;
   border-radius: 4px;
   background: rgba(242, 242, 242, 1);
+}
+
+@media screen and (max-width: 550px) {
+  .card {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .card__right {
+    align-self: flex-end;
+  }
+
+  /* .card__left {
+    flex-direction: column;
+  }
+
+  .card__desc {
+    gap: 10px;
+  } */
 }
 </style>

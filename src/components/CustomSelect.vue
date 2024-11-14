@@ -74,7 +74,6 @@ watch(
 
 .sort-select {
   position: relative;
-  min-width: 230px;
   font-family: Arial, sans-serif;
   text-transform: uppercase;
 
@@ -93,7 +92,7 @@ watch(
 }
 
 .arrow {
-  margin-left: 10px;
+  margin-left: 4px;
 }
 
 .dropdown {

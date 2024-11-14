@@ -47,7 +47,7 @@ watch(
       <div class="product__options">
         <div class="product__controls">
           <p class="product__count">{{ cardStore.itemsCounter }} товаров</p>
-
+          <button>Фильтры</button>
           <CustomSelect v-model="filters" />
         </div>
         <div class="product__list" v-auto-animate>
@@ -78,11 +78,23 @@ watch(
   min-width: 169px;
 }
 
+.product__controls button {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14.52px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .product__controls {
   display: flex;
   justify-content: space-between;
   margin-bottom: 44px;
   align-items: center;
+}
+
+.product__controls button {
+  display: none;
 }
 
 .product__options {
@@ -105,5 +117,28 @@ watch(
   font-weight: 500;
   line-height: 14.52px;
   letter-spacing: 0.06em;
+}
+
+@media screen and (max-width: 980px) {
+  .product__count,
+  .product__filter {
+    display: none;
+  }
+
+  .product__controls button {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .product__list {
+    gap: 59px 15px;
+  }
+}
+
+@media screen and (max-width: 545px) {
+  .product__list {
+    justify-content: center;
+  }
 }
 </style>

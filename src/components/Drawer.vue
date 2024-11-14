@@ -183,10 +183,8 @@ const buttonDisabled = computed(() =>
 }
 
 .cart__price p {
-  font-family: Inter;
   font-size: 30px;
   font-weight: 500;
-  line-height: 30px;
 }
 
 .cart__btn {
@@ -199,9 +197,17 @@ const buttonDisabled = computed(() =>
   background: rgb(172, 173, 172);
 }
 
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 768px) {
   .drawer {
     width: 100%;
+  }
+
+  .cart__btn {
+    padding: 15px 30px;
+  }
+
+  .cart__price p {
+    font-size: 20px;
   }
 }
 </style>
