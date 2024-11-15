@@ -1,4 +1,5 @@
 <script setup>
+import axios from "axios";
 import { ref, onMounted, watch } from "vue";
 import ProductFilterItem from "./ProductFilterItem.vue";
 import CustomSelect from "./CustomSelect.vue";
@@ -9,13 +10,14 @@ import { useCartStore } from "@/stores/CartProductStore";
 const cardStore = useCardStore();
 const cartStore = useCartStore();
 const isFilterMenu = ref(false);
+const selectedFilters = ref([]);
 const filters = ref({
   sortBy: "name",
 });
 
 const filterItems = ref([
   { id: 1, name: "Новинки", type: "new" },
-  { id: 2, name: "Есть в наличии", type: "instock" },
+  { id: 2, name: "Есть в наличии", type: "stock" },
   { id: 3, name: "Контрактные", type: "contract" },
   { id: 4, name: "Эксклюзивные", type: "exclusive" },
   { id: 5, name: "Распродажа", type: "sale" },
@@ -40,9 +42,9 @@ onMounted(async () => {
 });
 
 watch(
-  filters,
+  [filters, selectedFilters],
   () => {
-    cardStore.fetchItems(filters.value);
+    cardStore.fetchItems(filters.value, selectedFilters.value);
   },
   { deep: true }
 );
@@ -58,6 +60,7 @@ watch(
           v-for="item in filterItems"
           :key="item.id"
           :item="item"
+          v-model="selectedFilters"
         />
       </form>
     </div>
@@ -71,6 +74,7 @@ watch(
           v-for="item in filterItems"
           :key="item.id"
           :item="item"
+          v-model="selectedFilters"
         />
       </form>
       <div class="product__options">

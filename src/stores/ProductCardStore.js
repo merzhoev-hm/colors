@@ -8,10 +8,11 @@ export const useCardStore = defineStore("cardStore", () => {
 
   const itemsCounter = computed(() => items.value.length);
 
-  const fetchItems = async (filters) => {
+  const fetchItems = async (filters, selectedFilters) => {
     try {
       const params = {
         sortBy: filters.sortBy,
+        type: selectedFilters,
       };
 
       const { data } = await axios.get(

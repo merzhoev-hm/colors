@@ -1,13 +1,17 @@
 <script setup>
+const model = defineModel();
+
 defineProps({
   item: Object,
 });
+
+const emit = defineEmits(["logFilterItem"]);
 </script>
 
 <template>
   <div class="checkbox-container">
     <label class="checkbox-ios">
-      <input type="checkbox" />
+      <input v-model="model" :value="item.type" type="checkbox" />
       <span class="checkbox-ios-switch"></span>
     </label>
     <div class="checkbox__name">{{ item.name }}</div>

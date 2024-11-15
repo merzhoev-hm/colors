@@ -210,4 +210,10 @@ const buttonDisabled = computed(() =>
     font-size: 20px;
   }
 }
+
+@media screen and (max-width: 400px) {
+  .cart__btn {
+    padding: 10px 20px;
+  }
+}
 </style>
