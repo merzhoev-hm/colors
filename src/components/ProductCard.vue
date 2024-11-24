@@ -23,9 +23,10 @@ defineProps({
 
 <style scoped>
 .card {
-  width: 278px;
+  flex-basis: 278px;
   /* height: 376px; */
   transition: all 0.2s ease;
+  flex-grow: 1;
 }
 
 .card:hover {
@@ -77,7 +78,7 @@ defineProps({
 
 @media screen and (max-width: 980px) {
   .card {
-    width: 200px;
+    flex-basis: 200px;
   }
 
   .card__img img {
@@ -88,7 +89,7 @@ defineProps({
 
 @media screen and (max-width: 768px) {
   .card {
-    width: 156px;
+    flex-basis: 156px;
   }
 
   .card__img img {
