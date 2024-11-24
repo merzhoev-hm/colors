@@ -1,4 +1,5 @@
-# my-project
+# COLORS
+Ссылка на деплой https://colors-eight-green.vercel.app/
 
 ## Project setup
 ```
